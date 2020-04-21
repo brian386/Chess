@@ -15,12 +15,16 @@ public class Main {
 
 	public static Piece[][] board = new Piece[8][8];
 	public static ArrayList<Piece> pList = new ArrayList<Piece>();
+	static int playerTurn = 1;
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		King blackKing = new King(0, 4, 0);
+		King whiteKing = new King(7, 4, 1);
+		
 		
         //add Pieces
 		pList.add(new Rook(0, 0, 0));
@@ -30,7 +34,7 @@ public class Main {
 		pList.add(new Bishop(0,2, 0));
 		pList.add(new Bishop(0, 5, 0));
 		pList.add(new Queen(0, 3, 0));
-		pList.add(new King(0, 4, 0));
+		pList.add(blackKing);
 		
 		pList.add(new Rook(7, 0, 1));
 		pList.add(new Rook(7, 7, 1));
@@ -38,7 +42,7 @@ public class Main {
 		pList.add(new Knight(7, 6, 1));
 		pList.add(new Bishop(7, 2, 1));
 		pList.add(new Bishop(7, 5, 1));
-		pList.add(new King(7, 4, 1));
+		pList.add(whiteKing);
 		pList.add(new Queen(7, 3, 1));
 		
 		for(int i = 0; i <= 7; i++) {
@@ -55,7 +59,7 @@ public class Main {
 			}
 			// Display board
 			displayBoard();
-			
+			System.out.println("Player " + playerTurn + "'s Turn");
 //			int move = sc.nextInt();
 //			int initialY = move / 1000;
 //			int initialX = move % 1000 / 100;
@@ -63,24 +67,36 @@ public class Main {
 //			int finalX = move % 10;
 			
 			str = sc.nextLine();
-			int initialY =  str.charAt(0)-97;
-			int initialX = 8-(str.charAt(1)-48);
-			int finalY = str.charAt(2)-97;
-			int finalX = 8-(str.charAt(3)-48);
+			int initialCol =  str.charAt(0)-97;
+			int initialRow = 8-(str.charAt(1)-48);
+			int finalCol = str.charAt(2)-97;
+			int finalRow = 8-(str.charAt(3)-48);
 
-			System.out.println(initialX + " " + initialY + " " + finalX + " " + finalY);
-		
-			if (board[initialX][initialY] != null && board[initialX][initialY].checkLegal(initialX, initialY, finalX, finalY) && 
-					(board[finalX][finalY] == null || board[finalX][finalY].getColor() != board[initialX][initialY].getColor())){
+			System.out.println(initialRow + " " + initialCol + " " + finalRow + " " + finalCol);
+			
+
+			
+			if (board[initialRow][initialCol] != null && board[initialRow][initialCol].checkLegal(initialRow, initialCol, finalRow, finalCol) 
+				&& playerTurn == board[initialRow][initialCol].getColor() ){
 				
-				board[initialX][initialY].makeMove(finalX, finalY);
-				board[initialX][initialY] = null;
-				clearScreen();
+			
+				
+				board[initialRow][initialCol].makeMove(finalRow, finalCol);
+				//board[initialRow][initialCol] = null;
+				
+				boolean whiteKingInCheck = (playerTurn == 1 && whiteKing.inCheck());
+				boolean blackKingInCheck = (playerTurn == 0 && blackKing.inCheck());
+				boolean kingInCheck = whiteKingInCheck || blackKingInCheck;
+				if(kingInCheck) {
+					board[finalRow][finalCol].makeMove(initialRow, initialCol);
+					System.out.println("Illegal Move (King not safe)");
+
+				}else {
+					playerTurn = playerTurn == 0 ? 1 : playerTurn == 1 ? 0: 10000;
+				}
 			} else {
 				System.out.println("Illegal Move");
-				clearScreen();
 				
-
 			}
 		}
 	}
@@ -103,6 +119,5 @@ public class Main {
 		//?????
 	}
 	
-
 
 }

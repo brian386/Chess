@@ -11,6 +11,7 @@ public abstract class Piece extends Main {
 		
 	}
 	//accessors
+	
 	int getPosX() {
 		return this.posX;
 	}
@@ -25,10 +26,13 @@ public abstract class Piece extends Main {
 	
 	//move
 	void makeMove(int x, int y) {
-	    //pList.remove(board[x][y]);
+	    pList.remove(board[x][y]);
+		board[x][y] = board[this.posX][this.posY];
+		board[this.posX][this.posY]= null; 
 		this.posX = x;
 		this.posY = y;
+
 		
 	}
-	abstract boolean checkLegal(int x1, int y1, int x2, int y2);
+	 abstract boolean checkLegal(int x1, int y1, int x2, int y2);
 }

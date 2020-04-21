@@ -22,23 +22,30 @@ public class Pawn extends Piece {
 	@Override
 	boolean checkLegal(int x1, int y1, int x2, int y2) {
 		// TODO Auto-generated method stub
+		
+		//Check if final pos is either blank or opposite color
+		if(!(board[x2][y2] == null || board[x2][y2].getColor() != this.getColor())) return false;
+		
+		//black pawn
 		boolean ans = true;
 		if(this.getColor() == 0) {
 			if(board[x2][y2] == null) {
 				if((x2 - x1 == 1 && y2== y1) || (x2-x1 == 2 && firstMove && y2==y1)) ans =true;
 				else ans = false;
 			}else {
-				if(x2-x1 == 1 && y2-y1 ==1) ans = true;
+				if(x2-x1 == 1 && Math.abs(y2-y1) ==1) ans = true;
 				else ans = false;
 			}
 		}
+		
+		//white pawn
 		
 		if(this.getColor() == 1) {
 			if(board[x2][y2] == null) {
 				if((x1 - x2 == 1 && y2==y1) || (x1-x2 == 2 && firstMove && y2==y1)) ans =true;
 				else ans = false;
 			}else {
-				if(x1-x2 == 1 && y1-y2 ==1) ans = true;
+				if(x1-x2 == 1 && Math.abs(y1-y2) ==1) ans = true;
 				else ans = false;
 			}
 			

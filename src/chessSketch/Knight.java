@@ -16,6 +16,10 @@ public class Knight extends Piece {
 	@Override
 	boolean checkLegal(int x1, int y1, int x2, int y2) {
 		// TODO Auto-generated method stub
+		//Check if final pos is either blank or opposite color
+		if(!(board[x2][y2] == null || board[x2][y2].getColor() != this.getColor())) return false;
+		
+		//Check normal move
 		if((Math.abs(x2-x1)==1 && Math.abs(y2-y1) == 2) || (Math.abs(x2-x1) == 2 && Math.abs(y2-y1) == 1)){
 			return true;
 					

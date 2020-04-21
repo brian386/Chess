@@ -16,41 +16,43 @@ public class Queen extends Piece {
 	@Override
 	boolean checkLegal(int x1, int y1, int x2, int y2) {
 		// TODO Auto-generated method stub
+		
+		//Check if final pos is either blank or opposite color
+		if(!(board[x2][y2] == null || board[x2][y2].getColor() != this.getColor())) return false;
+		
 		boolean ans = true;
 		
+		//See if the move is either vertical or diagonal
 		if((x2 - x1 == 0 || y2-y1 == 0) || (Math.abs(x2-x1) == Math.abs(y2-y1))) ans = true;
 		else ans = false;
 		
+		
 		int i = y2-y1 == 0 ? Math.min(x1, x2) + 1 : x1;
 		int j = (x2 - x1 == 0) ? Math.min(y1, y2) +1: y1;
-
+		
+		//Check blocking vertically
 		if (x2 - x1 == 0) {
 			while (j < Math.max(x1, x2)) {
 				if (board[i][j] != null)
 					ans = false;
-				//System.out.println(i);
 				j++;
 			}
-			//System.out.print("a");
 		}
 
 		if (y2 - y1 == 0) {
 			while (i < Math.max(y1, y2)) {
 				if (board[i][j] != null)
 					ans = false;
-				//System.out.println(j);
 				i++;
 			}
-			//System.out.print("a");
 		}
 		
-		
+		//Check blocking diagonally
 		if(x2>x1 && y2>y1) {
 			i += 1;
 			j += 1;
 			while(i < x2 && j < y2) {
 				if(board[i][j] != null) ans = false;
-				//System.out.print("a");
 				i++;
 				j++;
 			}
@@ -61,7 +63,6 @@ public class Queen extends Piece {
 			j +=1;
 			while(i > x2 && j < y2) {
 				if(board [i][j] != null) ans = false;
-				//System.out.print("a");
 				i--;
 				j++;
 			}
@@ -72,7 +73,6 @@ public class Queen extends Piece {
 			j--;
 			while( i < x2 && j > y2) {
 				if(board[i][j] != null) ans = false;
-				//System.out.print("a");
 				i++;
 				j--;
 			}
@@ -84,7 +84,6 @@ public class Queen extends Piece {
 			j--;
 			while( i > x2 && j > y2) {
 				if(board[i][j] != null) ans = false;
-				//System.out.print("a");
 				i--;
 				j--;
 			}
