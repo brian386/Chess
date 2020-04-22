@@ -26,7 +26,8 @@ public abstract class Piece extends Main {
 	
 	//move
 	void makeMove(int x, int y) {
-	    pList.remove(board[x][y]);
+		pList.remove(board[x][y]); 
+		capturedPieces.add(board[x][y]);
 		board[x][y] = board[this.posX][this.posY];
 		board[this.posX][this.posY]= null; 
 		this.posX = x;

@@ -15,6 +15,7 @@ public class Main {
 
 	public static Piece[][] board = new Piece[8][8];
 	public static ArrayList<Piece> pList = new ArrayList<Piece>();
+	public static ArrayList<Piece> capturedPieces = new ArrayList<Piece>();
 	static int playerTurn = 1;
 
 	/**
@@ -80,18 +81,21 @@ public class Main {
 				&& playerTurn == board[initialRow][initialCol].getColor() ){
 				
 			
-				
+				boolean didMoveCapture = board[finalRow][finalCol] != null;
 				board[initialRow][initialCol].makeMove(finalRow, finalCol);
+
 				//board[initialRow][initialCol] = null;
 				
 				boolean whiteKingInCheck = (playerTurn == 1 && whiteKing.inCheck());
 				boolean blackKingInCheck = (playerTurn == 0 && blackKing.inCheck());
 				boolean kingInCheck = whiteKingInCheck || blackKingInCheck;
 				if(kingInCheck) {
+					if(didMoveCapture) pList.add(capturedPieces.get(capturedPieces.size()-1));
 					board[finalRow][finalCol].makeMove(initialRow, initialCol);
 					System.out.println("Illegal Move (King not safe)");
 
 				}else {
+				    
 					playerTurn = playerTurn == 0 ? 1 : playerTurn == 1 ? 0: 10000;
 				}
 			} else {
