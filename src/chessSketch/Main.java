@@ -46,10 +46,10 @@ public class Main {
 		pList.add(whiteKing);
 		pList.add(new Queen(7, 3, 1));
 		
-		for(int i = 0; i <= 7; i++) {
-			pList.add(new Pawn(1, i, 0));
-			pList.add(new Pawn(6, i, 1));
-		}
+//		for(int i = 0; i <= 7; i++) {
+//			pList.add(new Pawn(1, i, 0));
+//			pList.add(new Pawn(6, i, 1));
+//		}
 		String str;
 		
 		while (true) {

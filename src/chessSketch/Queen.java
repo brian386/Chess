@@ -32,7 +32,7 @@ public class Queen extends Piece {
 		
 		//Check blocking vertically
 		if (x2 - x1 == 0) {
-			while (j < Math.max(x1, x2)) {
+			while (j < Math.max(y1, y2)) {
 				if (board[i][j] != null)
 					ans = false;
 				j++;
@@ -40,7 +40,7 @@ public class Queen extends Piece {
 		}
 
 		if (y2 - y1 == 0) {
-			while (i < Math.max(y1, y2)) {
+			while (i < Math.max(x1, x2)) {
 				if (board[i][j] != null)
 					ans = false;
 				i++;
